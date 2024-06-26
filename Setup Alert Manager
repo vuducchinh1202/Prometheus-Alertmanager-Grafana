@@ -1,0 +1,24 @@
+Alert Manager
+wget https://github.com/prometheus/alertmanager/releases/download/v0.27.0/alertmanager-0.27.0.linux-amd64.tar.gz
+tar -xvzf alertmanager-0.27.0.linux-amd64.tar.gz
+mv alertmanager-0.27.0.linux-amd64.tar.gz alertmanger
+vi /etc/systemd/system/alertmanger.service
+[Unit]
+Description=Alertmanager
+Documentation=https://prometheus.io/docs/alerting/latest/alertmanager/
+After=network.target
+
+[Service]
+User=root
+Type=simple
+ExecStart=/home/alertmanager/alertmanager/alertmanager \
+  --config.file=/home/alertmanager/alertmanager/alertmanager.yml \
+  --storage.path=/var/lib/alertmanager/
+
+[Install]
+WantedBy=multi-user.target
+
+sudo chown -R root:root /home/alertmanager
+systemctl daemon-reload
+systemctl start alertmanger
+systemctl enable alertmanager
