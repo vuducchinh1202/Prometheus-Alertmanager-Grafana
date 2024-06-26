@@ -1,0 +1,37 @@
+Prometheus 
+wget https://github.com/prometheus/prometheus/releases/download/v2.41.0/prometheus-2.41.0.linux-amd64.tar.gz
+tar -xvzf prometheus-2.41.0.linux-amd64.tar.gz
+mv prometheus-2.41.0.linux-amd64.tar.gz prometheus
+
+vi /etc/systemd/system/prometheus.service
+[Unit]
+Description=Prometheus
+Documentation=https://prometheus.io/docs/introduction/overview/
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+User=root
+Type=simple
+ExecStart=/prometheus/prometheus/prometheus \
+  --config.file=/prometheus/prometheus/prometheus.yml \
+  --storage.tsdb.path=/prometheus/prometheus/data \
+  --web.console.templates=/prometheus/prometheus/consoles \
+  --web.console.libraries=/prometheus/prometheus/console_libraries
+Restart=on-failure
+
+# Modify these options as needed:
+# Memory limit and other resource limits
+LimitNOFILE=8192
+
+[Install]
+WantedBy=multi-user.target
+
+systemctl daemon-reload
+systemctl start prometheus
+systemctl enable prometheus
+
+
+
+
+
