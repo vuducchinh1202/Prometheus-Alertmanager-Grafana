@@ -1,4 +1,5 @@
 groups:
+# InstanceDown
   - name: instance.rules
     rules:
       - alert: InstanceDown
