@@ -1,0 +1,41 @@
+# MongoDB
+wget https://github.com/percona/mongodb_exporter/releases/download/v0.34.0/mongodb_exporter-0.34.0.linux-amd64.tar.gz
+tar -xvzf mongodb_exporter-0.34.0.linux-amd64.tar.gz
+mv mongodb_exporter-0.34.0.linux-amd64.tar.gz mongodb-exporter
+vi /etc/systemd/system/mongodb-exporter.service
+[Unit]
+Description=MongoDB Exporter
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+User=root
+Type=simple
+ExecStart=/home/mongodb-exporter/mongodb-exporter/mongodb_exporter  --mongodb.uri=mongodb://localhost:27017
+
+[Install]
+WantedBy=multi-user.target
+
+systemctl daemon-reload
+systemctl start mongodb-exporter
+
+#Nginx-exporter 
+vi /etc/systemd/systemctl/nginx-exporter.service
+[Unit]
+Description=Nginx Exporter
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+User=root
+Type=simple
+Restart=on-failure
+RestartSec=5s
+
+ExecStart=/home/nginx-exporter/nginx-prometheus-exporter \
+  -nginx.scrape-uri=http://192.168.28.138:8080/status
+
+[Install]
+WantedBy=multi-user.target
+
+#Redis-exporter
