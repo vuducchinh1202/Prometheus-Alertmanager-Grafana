@@ -1,0 +1,37 @@
+# /etc/alertmanager/templates/telegram.tmpl
+
+{{ define "telegram_message" }}
+{{ if gt (len .Alerts.Firing) 0 }}
+🚨 *Alerts Firing* 🚨
+
+*Labels:*
+{{ range .Alerts.Firing }}
+- alertname: {{ .Labels.alertname }}
+- instance: {{ .Labels.instance }}
+- job: {{ .Labels.job }}
+- severity: {{ .Labels.severity }}
+
+*Annotations:*
+- description: {{ .Annotations.description }}
+- summary: {{ .Annotations.summary }}
+
+Source: [link]({{ .GeneratorURL }})
+{{ end }}
+{{ end }}
+
+{{ if gt (len .Alerts.Resolved) 0 }}
+✅ *Alerts Resolved* ✅
+
+*Labels:*
+{{ range .Alerts.Resolved }}
+- alertname: {{ .Labels.alertname }}
+- instance: {{ .Labels.instance }}
+- job: {{ .Labels.job }}
+- severity: {{ .Labels.severity }}
+
+*Annotations:*
+- description: {{ .Annotations.description }}
+- summary: {{ .Annotations.summary }}
+{{ end }}
+{{ end }}
+{{ end }}
