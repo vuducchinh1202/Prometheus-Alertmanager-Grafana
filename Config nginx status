@@ -1,0 +1,16 @@
+vi /etc/nginx/conf.d/stub_status_nginx.conf
+
+server {
+        listen 8080;
+
+        root /var/www/html;
+        index index.html index.htm index.nginx-debian.html;
+
+        server_name _;
+
+        location /status {
+                stub_status;
+        }
+}
+
+
