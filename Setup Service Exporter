@@ -1,4 +1,6 @@
 # MongoDB
+mkdir /home/mongodb-exporter
+cd mongodb-exporter
 wget https://github.com/percona/mongodb_exporter/releases/download/v0.34.0/mongodb_exporter-0.34.0.linux-amd64.tar.gz
 tar -xvzf mongodb_exporter-0.34.0.linux-amd64.tar.gz
 mv mongodb_exporter-0.34.0.linux-amd64.tar.gz mongodb-exporter
@@ -20,6 +22,11 @@ systemctl daemon-reload
 systemctl start mongodb-exporter
 
 #Nginx-exporter 
+mkdir /home/nginx-exporter
+cd /home/nginx-exporter
+wget https://github.com/nginxinc/nginx-prometheus-exporter/releases/download/v0.11.0/nginx-prometheus-exporter-0.11.0-linux-amd64.tar.gz
+tar -xzf nginx-prometheus-exporter-0.11.0-linux-amd64.tar.gz
+mv nginx-prometheus-exporter-0.11.0-linux-amd64 nginx-exporter
 vi /etc/systemd/systemctl/nginx-exporter.service
 [Unit]
 Description=Nginx Exporter
@@ -38,4 +45,52 @@ ExecStart=/home/nginx-exporter/nginx-prometheus-exporter \
 [Install]
 WantedBy=multi-user.target
 
+systemctl daemon-reload
+systemctl start nginx-exporter
+
 #Redis-exporter
+mkdir /home/redis-exporter
+cd /home/redis-exporter
+wget https://github.com/oliver006/redis_exporter/releases/download/v1.61.0/redis_exporter-v1.61.0.linux-amd64.tar.gz
+tar -xzf redis_exporter-v1.61.0.linux-amd64.tar.gz
+mv redis_exporter-v1.61.0.linux-amd64.tar.gz
+vi /etc/systemd/system/redis-exporter.service
+[Unit]
+Description=Redis Exporter
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+User=root
+Type=simple
+ExecStart=/home/redis-exporter/redis-exporter/redis_exporter
+
+[Install]
+WantedBy=multi-user.target
+
+systemctl daemon-reload
+systemctl start redis-exporter
+systemctl enable redis-exporter
+
+#PHP Exporter
+mkdir /home/phpfpm-exporter
+cd /phpfpm-exporter
+wget https://github.com/bakins/php-fpm-exporter/releases/download/v0.5.0/php-fpm-exporter-0.5.0-linux-amd64.tar.gz
+tar -xzf php-fpm-exporter-0.5.0-linux-amd64.tar.gz
+mv php-fpm-exporter-0.5.0-linux-amd64 phpfpm-exporter
+vi /etc/systemd/system/phpfpm-exporter.service
+[Unit]
+Description=PHP Exporter
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+User=root
+Type=simple
+ExecStart=/home/php-exporter/phpfpm-exporter/phpfpm_exporter
+
+[Install]
+WantedBy=multi-user.target
+
+systemctl daemon-reload
+systemctl start phpfpm-exporter
