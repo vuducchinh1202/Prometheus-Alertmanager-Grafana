@@ -22,7 +22,7 @@ receivers:
   - name: 'telegram'
     telegram_configs:
       - api_url: https://api.telegram.org    
-        bot_token: '7488253696:AAE2X7XKkmwnE-g7RHx12OtZd4YLimxIgis'    Lấy từ 
+        bot_token: '7488253696:AAE2X7XKkmwnE-g7RHx12OtZd4YLimxIgis'    #Lấy từ Bot Father Telegram
         chat_id: 1157305769
         parse_mode: 'HTML'
         send_resolved: true
