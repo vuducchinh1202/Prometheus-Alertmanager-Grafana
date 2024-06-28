@@ -21,8 +21,8 @@ receivers:
   - name: 'default-receiver'
   - name: 'telegram'
     telegram_configs:
-      - api_url: https://api.telegram.org
-        bot_token: '7488253696:AAE2X7XKkmwnE-g7RHx12OtZd4YLimxIgis'
+      - api_url: https://api.telegram.org    
+        bot_token: '7488253696:AAE2X7XKkmwnE-g7RHx12OtZd4YLimxIgis'    Lấy từ 
         chat_id: 1157305769
         parse_mode: 'HTML'
         send_resolved: true
@@ -33,7 +33,7 @@ receivers:
         smarthost: 'smtp.gmail.com:587'
         auth_username: 'vuducchinh1202@gmail.com'
         auth_identity: 'vuducchinh1202@gmail.com'
-        auth_password: 'foam rxpr vpud cnhn'
+        auth_password: 'foam rxpr vpud cnhn'  # Mật khẩu ứng dụng tạo trên Google
         send_resolved: true
 
 templates:
